@@ -1,16 +1,331 @@
 #!/usr/bin/python3
-import controls
-import sensors
 from threading import Thread
 
 import numpy as np
 import time
 
 import RPi.GPIO as GPIO
+import Adafruit_PCA9685
+from picamera import PiCamera
+from picamera.array import PiRGBArray
+
 #GPIO.setwarnings(False) #??? In original code
 GPIO.setmode(GPIO.BCM)  # Set pin numbering system for board
 
-#TODO: move all classes into a single file
+
+# set up a pulse width modulation function to send to servos
+pwm = Adafruit_PCA9685.PCA9685()
+pwm.set_pwm_freq(60)
+
+
+class Sonar:
+
+    def __init__(self, txPin=11, rxPin=8):
+        self.soundSpeed = 340
+
+        GPIO.setup(txPin, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(rxPin, GPIO.IN)
+        
+        self.tx = txPin
+        self.rx = rxPin
+
+
+    def __del__(self):
+        pass
+    
+    def __enter__(self):
+        return self
+    
+    def __exit__(self,exception_type, exception_value, traceback):
+        self.close()
+
+    def close(self):
+        pass
+
+    def ping(self, maxRange=1, pulseWidth=.000015): #TODO: impliment distance
+        '''Measure return time of a single ping'''
+
+        # Transmit ping
+        GPIO.output(self.tx, GPIO.HIGH)
+        time.sleep(pulseWidth)
+        GPIO.output(self.tx, GPIO.LOW)
+
+        while not GPIO.input(self.rx):
+            #??? waiting for ping to stop. Should already be done though
+            # Forces the time to start/end at end of ping. Falling edge
+            pass 
+        t1 = time.time()
+        while GPIO.input(self.rx):
+            # Forces the time to start/end at end of ping. Falling edge
+            pass
+        t2 = time.time()
+        return (t2-t1)*self.soundSpeed/2
+
+
+class LineSensor:
+    '''Line sensor consisting of 3 elements in a linear array'''
+    
+    def __init__(self,pin_middle=16, pin_left=19, pin_right=20, blackLine=True):
+        '''Create instance of Line Sensor'''
+        
+        # Set up pins for linereader
+        #GPIO.setwarnings(False) #??? global
+        #GPIO.setmode(GPIO.BCM)  #??? global
+
+        self.pin_middle = pin_middle
+        self.pin_left = pin_left
+        self.pin_right = pin_right
+
+        print("Starting line sensor")
+        time.sleep(2)
+        GPIO.setup(self.pin_middle,GPIO.IN)
+        GPIO.setup(self.pin_left,GPIO.IN)
+        GPIO.setup(self.pin_right,GPIO.IN)
+
+    def __del__(self):
+        '''Called on destruction of instance'''
+        self.close()
+    
+    def __enter__(self):
+        '''Called at start of with statement'''
+        return self
+    
+    def __exit__(self,exception_type, exception_value, traceback):
+        '''Called at the end of with statement'''
+        self.close()
+
+    def __call__(self):
+        '''Return the current state of the line sensor'''
+        return np.array([GPIO.input(self.pin_left),
+                         GPIO.input(self.pin_middle),
+                         GPIO.input(self.pin_right)])
+
+    def close(self):
+        pass
+
+
+class Camera(PiCamera):
+    '''Camera class class which can read or stream over a socket'''
+
+    def __init__(self, resolution=(640.480)):
+        '''Constructor for camera'''
+
+        print("Initializing picamera")
+        PiCamera.__init__(self, resolution = resolution)
+        time.sleep(1) # Give camera time to start up
+        
+        # Set up buffer for capture
+        self.rawCapture = PiRGBArray(self)
+        self.rawCapture.truncate(0)
+        self.rawCapture.seek(0)
+        
+    def __del__(self):
+        '''Destructor'''
+        self.close()
+
+    def __enter__(self):
+        '''Called on with statement'''
+        return self
+
+    def __exit__(self,exception_type, exception_value, traceback):
+        '''Called on exit from with statement'''
+        self.close()
+
+    def close(self):
+        '''Close camera nicely'''
+        PiCamera.close(self)
+
+    def read(self):
+        '''Return frame same as cv2.read()'''
+        self.rawCapture.truncate(0)
+        self.rawCapture.seek(0)
+        PiCamera.capture(self,self.rawCapture, format="bgr",
+                         use_video_port=True)
+        return True,self.rawCapture.array
+
+    def stream(self,sock):
+        '''Continuous capture and send over network'''
+
+        # Reset buffer
+        self.rawCapture.truncate(0)
+        self.rawCapture.seek(0)
+
+        # Take pictures and send to client as quickly as client can handle
+        for frame in self.capture_continuous(output=self.rawCapture,
+                                             format= "bgr",
+                                             use_video_port=True):
+
+            # reformat image for sending
+            image = frame.array
+            encoded,buffer = cv2.imencode('.jpg',image)
+            jpg_as_text = base64.b64encode(buffer)
+
+            #TODO: send as numpy array and avoid using opencv
+            # Send to client
+            sock.send(jpg_as_text)
+
+            # Reset buffer
+            self.rawCapture.truncate(0)
+            self.rawCapture.seek(0)
+    
+
+class Motor:
+
+    def __init__(self, en, pin1, pin2):
+        '''Set up pins and start motor'''
+
+        GPIO.setwarnings(False)  #??? is this global
+        GPIO.setmode(GPIO.BCM)   #??? is this global
+        GPIO.setup(en, GPIO.OUT)
+        GPIO.setup(pin1, GPIO.OUT)
+        GPIO.setup(pin2, GPIO.OUT)
+
+        self.en = en
+        self.pin1 = pin1
+        self.pin2 = pin2
+
+        self.speed = 0
+
+        self.pwm = 0
+        # this could pop an error and need try: except: pass
+        self.pwm = GPIO.PWM(en,1000)
+
+
+    def __del__(self):
+        pass
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self,exception_type, exception_value, traceback):
+        self.close()
+
+    def close(self):
+        self.stop()
+        GPIO.cleanup() #???
+
+    def stop(self):
+        '''Stops motor after pulling in the opposite direction to hard stop'''
+        #TODO: impliment the hard stop
+        '''
+        if self.speed>0:
+            self.pulse(-100,.1)
+        elif self.speed<0:
+            self.pulse(100,.1)
+        '''
+        GPIO.output(self.pin1, GPIO.LOW)
+        GPIO.output(self.pin2, GPIO.LOW)
+        GPIO.output(self.en,   GPIO.LOW)
+        self.speed = 0
+
+    def coast(self):
+        '''Releases motor to coast'''
+        GPIO.output(self.pin1, GPIO.LOW)
+        GPIO.output(self.pin2, GPIO.LOW)
+        GPIO.output(self.en,   GPIO.LOW)
+        self.speed = 0
+
+    def forward(self, speed=100):
+        '''Drives forward'''
+        GPIO.output(self.pin1, GPIO.HIGH)
+        GPIO.output(self.pin2, GPIO.LOW)
+        self.pwm.start(100)
+        self.pwm.ChangeDutyCycle(speed)
+        self.speed = speed
+
+    def reverse(self, speed=100):
+        '''Drives backwards'''
+        GPIO.output(self.pin1, GPIO.LOW)
+        GPIO.output(self.pin2, GPIO.HIGH)
+        self.pwm.start(100)
+        self.pwm.ChangeDutyCycle(speed)
+        self.speed = speed
+
+    def drive(self, speed):
+        '''checks direction and moves'''
+        if speed>0:
+            self.forward(speed)
+        elif speed<0:
+            self.reverse(-speed)
+        else:
+            self.stop()
+
+    def pulse(self,speed,t):
+        self.drive(speed)
+        time.sleep(t)
+        self.stop()
+
+
+class Servo:
+
+    '''Class defining a servo'''
+
+    def __init__(self, pin, pwmMin, pwmMax, pwmCenter, angMin, angMax, angCenter):
+        '''Create an instance of Servo class'''
+
+        # Hardware pin
+        self.pin = pin
+
+        # Underlying PWM settings
+        self._pwm_center = pwmCenter
+        self._pwm_max = pwmMax
+        self._pwm_min = pwmMin
+        self._pwm_range = pwmMax-pwmMin
+
+        # External angle options
+        self.MIN = angMin
+        self.MAX = angMax
+        self.CENTER = angCenter
+        self.RANGE =angMax-angMin
+
+        # set to initial position
+        self.angle = self.CENTER
+        self.center()
+
+    def __del__(self):
+        pass
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self,exception_type, exception_value, traceback):
+        self.close()
+
+    def close(self):
+        pass
+
+    def _angle_to_pwm(self, angle):
+        '''Convert angle to corresponding pwm frequency'''
+        return round((angle-self.CENTER)*(self._pwm_range/self.RANGE)+self._pwm_center)
+
+    def goto(self, angle):
+        '''Rotate to angle'''
+        if angle>self.MAX:
+            #print("Warning: request above available positions: using {} instead".format(self.MAX))
+            angle=self.MAX
+            
+        elif angle<self.MIN:
+            #print("Warning: request below available positions: using {} instead".format(self.MIN))
+            angle=self.MIN
+        pwm.set_pwm(self.pin, 0, int(self._angle_to_pwm(angle)))
+        self.angle = angle
+
+    def rotate(self, angle):
+        '''Rotate an incriment'''
+        self.goto(angle+self.angle)
+
+    def center(self):
+        '''Go to center'''
+        self.goto(self.CENTER)
+
+    def max(self):
+        '''Go to max'''
+        self.goto(self.MAX)
+
+    def min(self):
+        '''Go to min'''
+        self.goto(self.MIN)
+
 
 class PiCar:
     '''
@@ -25,21 +340,21 @@ class PiCar:
     def __init__(self):
         # Controls
         print("Initializing controls")
-        self.motor = controls.Motor(17,27,18)
-        self.tilt = controls.Servo(0,425,650,515,-30,30,0)
-        self.pan = controls.Servo(1,160,650,395,-90,90,0)
-        self.turn = controls.Servo(2,180,520,370,-45,45,0)
+        self.motor = Motor(17,27,18)
+        self.tilt = Servo(0,425,650,515,-30,30,0)
+        self.pan = Servo(1,160,650,395,-90,90,0)
+        self.turn = Servo(2,180,520,370,-45,45,0)
 
         # Sensors
         print("Initializing sensors")
-        self.camera = sensors.Camera( resolution=(640,480) )
-        self.sonar = sensors.Sonar()
-        self.lineSensor = sensors.LineSensor(pin_middle=16,
+        self.camera = Camera( resolution=(640,480) )
+        self.sonar = Sonar()
+        self.lineSensor = LineSensor(pin_middle=16,
                                              pin_left=19,
                                              pin_right=20,
                                              blackLine=True)
         # Variables
-        self._mode = None
+        self._mode = ''
         self._stopped=False
 
 
@@ -86,7 +401,7 @@ class PiCar:
         self.motor.pulse(dir*100,.2)
 
 
-    def run_cmd(self, cmd,arg=None):
+    def run_cmd(self, cmd,arg=''):
         '''Run a preset command'''
         # Must match client side commands
         if cmd == 'disconnect':
@@ -198,7 +513,7 @@ class PiCar:
             P = current[2]-current[0]
             I = P*abs(right-left)/nHist
             D = (nHist-center)/nHist     # Hi if recently on line
-            D = abs(turnAng/maxAng)
+            #D = abs(turnAng/maxAng)
             # D will be 1 or 0
             # 1 means close to line (small turn)
             
@@ -214,6 +529,7 @@ class PiCar:
             self.turn.goto(turnAng)
             #time.sleep(1)
 
+            #TODO: make these values adjustable in the function call
             if abs(turnAng)<12:
                 self.motor.forward(70)
             elif abs(turnAng)<30:
@@ -260,7 +576,7 @@ if __name__=='__main__':
             try:
                 next(follow)
             except:
-                car._mode=None
+                car._mode=''
                 
 
     finally:
