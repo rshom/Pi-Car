@@ -1,0 +1,48 @@
+\indexentry{picar (module)@\spxentry{picar}\spxextra{module}|hyperpage}{1}
+\indexentry{Camera (class in picar)@\spxentry{Camera}\spxextra{class in picar}|hyperpage}{1}
+\indexentry{close() (picar.Camera method)@\spxentry{close()}\spxextra{picar.Camera method}|hyperpage}{1}
+\indexentry{read() (picar.Camera method)@\spxentry{read()}\spxextra{picar.Camera method}|hyperpage}{1}
+\indexentry{stream() (picar.Camera method)@\spxentry{stream()}\spxextra{picar.Camera method}|hyperpage}{1}
+\indexentry{LineSensor (class in picar)@\spxentry{LineSensor}\spxextra{class in picar}|hyperpage}{1}
+\indexentry{Motor (class in picar)@\spxentry{Motor}\spxextra{class in picar}|hyperpage}{1}
+\indexentry{coast() (picar.Motor method)@\spxentry{coast()}\spxextra{picar.Motor method}|hyperpage}{1}
+\indexentry{drive() (picar.Motor method)@\spxentry{drive()}\spxextra{picar.Motor method}|hyperpage}{1}
+\indexentry{forward() (picar.Motor method)@\spxentry{forward()}\spxextra{picar.Motor method}|hyperpage}{1}
+\indexentry{reverse() (picar.Motor method)@\spxentry{reverse()}\spxextra{picar.Motor method}|hyperpage}{1}
+\indexentry{stop() (picar.Motor method)@\spxentry{stop()}\spxextra{picar.Motor method}|hyperpage}{1}
+\indexentry{PiCar (class in picar)@\spxentry{PiCar}\spxextra{class in picar}|hyperpage}{1}
+\indexentry{all\_ahead() (picar.PiCar method)@\spxentry{all\_ahead()}\spxextra{picar.PiCar method}|hyperpage}{1}
+\indexentry{all\_stop() (picar.PiCar method)@\spxentry{all\_stop()}\spxextra{picar.PiCar method}|hyperpage}{1}
+\indexentry{ebrake() (picar.PiCar method)@\spxentry{ebrake()}\spxextra{picar.PiCar method}|hyperpage}{1}
+\indexentry{follow\_line() (picar.PiCar method)@\spxentry{follow\_line()}\spxextra{picar.PiCar method}|hyperpage}{2}
+\indexentry{pulse() (picar.PiCar method)@\spxentry{pulse()}\spxextra{picar.PiCar method}|hyperpage}{2}
+\indexentry{run\_cmd() (picar.PiCar method)@\spxentry{run\_cmd()}\spxextra{picar.PiCar method}|hyperpage}{2}
+\indexentry{sonar\_scan() (picar.PiCar method)@\spxentry{sonar\_scan()}\spxextra{picar.PiCar method}|hyperpage}{2}
+\indexentry{track\_object() (picar.PiCar method)@\spxentry{track\_object()}\spxextra{picar.PiCar method}|hyperpage}{2}
+\indexentry{Servo (class in picar)@\spxentry{Servo}\spxextra{class in picar}|hyperpage}{2}
+\indexentry{center() (picar.Servo method)@\spxentry{center()}\spxextra{picar.Servo method}|hyperpage}{2}
+\indexentry{goto() (picar.Servo method)@\spxentry{goto()}\spxextra{picar.Servo method}|hyperpage}{2}
+\indexentry{max() (picar.Servo method)@\spxentry{max()}\spxextra{picar.Servo method}|hyperpage}{2}
+\indexentry{min() (picar.Servo method)@\spxentry{min()}\spxextra{picar.Servo method}|hyperpage}{2}
+\indexentry{rotate() (picar.Servo method)@\spxentry{rotate()}\spxextra{picar.Servo method}|hyperpage}{2}
+\indexentry{server (module)@\spxentry{server}\spxextra{module}|hyperpage}{3}
+\indexentry{FootageStream (class in server)@\spxentry{FootageStream}\spxextra{class in server}|hyperpage}{3}
+\indexentry{run() (server.FootageStream method)@\spxentry{run()}\spxextra{server.FootageStream method}|hyperpage}{3}
+\indexentry{Reciever (class in server)@\spxentry{Reciever}\spxextra{class in server}|hyperpage}{3}
+\indexentry{run() (server.Reciever method)@\spxentry{run()}\spxextra{server.Reciever method}|hyperpage}{3}
+\indexentry{main() (in module server)@\spxentry{main()}\spxextra{in module server}|hyperpage}{3}
+\indexentry{client (module)@\spxentry{client}\spxextra{module}|hyperpage}{5}
+\indexentry{Keyboard (class in client)@\spxentry{Keyboard}\spxextra{class in client}|hyperpage}{5}
+\indexentry{run() (client.Keyboard method)@\spxentry{run()}\spxextra{client.Keyboard method}|hyperpage}{5}
+\indexentry{run\_cmd() (client.Keyboard method)@\spxentry{run\_cmd()}\spxextra{client.Keyboard method}|hyperpage}{5}
+\indexentry{LiveFeed (class in client)@\spxentry{LiveFeed}\spxextra{class in client}|hyperpage}{5}
+\indexentry{read() (client.LiveFeed method)@\spxentry{read()}\spxextra{client.LiveFeed method}|hyperpage}{5}
+\indexentry{run() (client.LiveFeed method)@\spxentry{run()}\spxextra{client.LiveFeed method}|hyperpage}{5}
+\indexentry{ObjectTracker (class in client)@\spxentry{ObjectTracker}\spxextra{class in client}|hyperpage}{5}
+\indexentry{deselect() (client.ObjectTracker method)@\spxentry{deselect()}\spxextra{client.ObjectTracker method}|hyperpage}{5}
+\indexentry{run() (client.ObjectTracker method)@\spxentry{run()}\spxextra{client.ObjectTracker method}|hyperpage}{5}
+\indexentry{select() (client.ObjectTracker method)@\spxentry{select()}\spxextra{client.ObjectTracker method}|hyperpage}{5}
+\indexentry{track() (client.ObjectTracker method)@\spxentry{track()}\spxextra{client.ObjectTracker method}|hyperpage}{5}
+\indexentry{Transmitter (class in client)@\spxentry{Transmitter}\spxextra{class in client}|hyperpage}{5}
+\indexentry{send\_cmd() (client.Transmitter method)@\spxentry{send\_cmd()}\spxextra{client.Transmitter method}|hyperpage}{5}
+\indexentry{voice\_command() (in module client)@\spxentry{voice\_command()}\spxextra{in module client}|hyperpage}{6}

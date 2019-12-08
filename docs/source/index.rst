@@ -1,0 +1,35 @@
+.. PiCar documentation master file, created by
+   sphinx-quickstart on Sun Dec  8 10:47:14 2019.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
+
+
+Welcome to PiCar's documentation!
+=================================
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Contents:
+
+
+The picar API reference
+=======================
+
+.. automodule:: picar
+   :members:
+
+
+The "server" module
+===================
+
+.. automodule:: server
+   :members:
+
+
+The "client" module
+===================
+
+.. automodule:: client
+   :members:
+
+   

@@ -1,0 +1,374 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Welcome to PiCar’s documentation! &#8212; PiCar 0.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-picar-s-documentation">
+<h1>Welcome to PiCar’s documentation!<a class="headerlink" href="#welcome-to-picar-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</div>
+<div class="section" id="module-picar">
+<span id="the-picar-api-reference"></span><h1>The picar API reference<a class="headerlink" href="#module-picar" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="picar.Camera">
+<em class="property">class </em><code class="sig-prename descclassname">picar.</code><code class="sig-name descname">Camera</code><span class="sig-paren">(</span><em class="sig-param">resolution=640.48</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.Camera" title="Permalink to this definition">¶</a></dt>
+<dd><p>Camera class class which can read or stream over a socket</p>
+<dl class="method">
+<dt id="picar.Camera.close">
+<code class="sig-name descname">close</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.Camera.close" title="Permalink to this definition">¶</a></dt>
+<dd><p>Close camera nicely</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Camera.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.Camera.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return frame same as cv2.read()</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Camera.stream">
+<code class="sig-name descname">stream</code><span class="sig-paren">(</span><em class="sig-param">sock</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.Camera.stream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuous capture and send over network</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="picar.LineSensor">
+<em class="property">class </em><code class="sig-prename descclassname">picar.</code><code class="sig-name descname">LineSensor</code><span class="sig-paren">(</span><em class="sig-param">pin_middle=16</em>, <em class="sig-param">pin_left=19</em>, <em class="sig-param">pin_right=20</em>, <em class="sig-param">blackLine=True</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.LineSensor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Line sensor consisting of 3 elements in a linear array</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="picar.PiCar">
+<em class="property">class </em><code class="sig-prename descclassname">picar.</code><code class="sig-name descname">PiCar</code><a class="headerlink" href="#picar.PiCar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides an interface to control the car.</p>
+<p>Upon construction, this class initializes all controls and sensors.
+For controls, the car has a motor, a turning servo, and 2 servos controlling the head.
+For sensors, the car has a line sensor, a sonar, and a camera.
+The constructor expects all the peripherals to be plugged into the pi in a specific manner which can only be changed by directly changing the code of the constructor.</p>
+<dl class="method">
+<dt id="picar.PiCar.all_ahead">
+<code class="sig-name descname">all_ahead</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.all_ahead" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bring all controls to forward</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.all_stop">
+<code class="sig-name descname">all_stop</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.all_stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the car and face forward. Exit any current mode</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.ebrake">
+<code class="sig-name descname">ebrake</code><span class="sig-paren">(</span><em class="sig-param">dir=1</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.ebrake" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hard brake by reversing for a second</p>
+<p>Change dir to -1 to use ebrake when reversed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.follow_line">
+<code class="sig-name descname">follow_line</code><span class="sig-paren">(</span><em class="sig-param">darkLine=False</em>, <em class="sig-param">speed=1</em>, <em class="sig-param">gain=(10</em>, <em class="sig-param">60</em>, <em class="sig-param">0)</em>, <em class="sig-param">nHist=100</em>, <em class="sig-param">maxAng=30</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.follow_line" title="Permalink to this definition">¶</a></dt>
+<dd><p>Look for a line and drive along following it</p>
+<p>The follow line is a generator needs to be continuously called in order to continue following the line.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.pulse">
+<code class="sig-name descname">pulse</code><span class="sig-paren">(</span><em class="sig-param">runTime</em>, <em class="sig-param">coastTime</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.pulse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuously pulse the motor.</p>
+<p>Generally, this method should be called as a thread to run in the background. Otherwise it will block the program from running.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.run_cmd">
+<code class="sig-name descname">run_cmd</code><span class="sig-paren">(</span><em class="sig-param">cmd</em>, <em class="sig-param">arg=''</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.run_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a preset command</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.sonar_scan">
+<code class="sig-name descname">sonar_scan</code><span class="sig-paren">(</span><em class="sig-param">distance=1</em>, <em class="sig-param">scanSpeed=1</em>, <em class="sig-param">tiltAngle=0</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.sonar_scan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure distances across full range of sonar</p>
+<p>Car will first look all the way to the left. It will then slowly turn all the way to the right, while making a sonar measurement at each angle.
+distance determines how long the ping should wait for a response.
+scanSpeed determines how far apart the pings are angularly. A slower scanSpeed means more pings and denser set of results. scanSpeed must be an integer greater than 0.</p>
+<p>sonar_scan() returns a list of distances and a second list of corresponding angles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.PiCar.track_object">
+<code class="sig-name descname">track_object</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.PiCar.track_object" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keep an object in view and follow it</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="picar.Servo">
+<em class="property">class </em><code class="sig-prename descclassname">picar.</code><code class="sig-name descname">Servo</code><span class="sig-paren">(</span><em class="sig-param">pin</em>, <em class="sig-param">pwmMin</em>, <em class="sig-param">pwmMax</em>, <em class="sig-param">pwmCenter</em>, <em class="sig-param">angMin</em>, <em class="sig-param">angMax</em>, <em class="sig-param">angCenter</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class defining a servo</p>
+<dl class="method">
+<dt id="picar.Servo.center">
+<code class="sig-name descname">center</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo.center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to center</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Servo.goto">
+<code class="sig-name descname">goto</code><span class="sig-paren">(</span><em class="sig-param">angle</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo.goto" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate to angle</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Servo.max">
+<code class="sig-name descname">max</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo.max" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to max</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Servo.min">
+<code class="sig-name descname">min</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo.min" title="Permalink to this definition">¶</a></dt>
+<dd><p>Go to min</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="picar.Servo.rotate">
+<code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param">angle</em><span class="sig-paren">)</span><a class="headerlink" href="#picar.Servo.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate an incriment</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-server">
+<span id="the-server-module"></span><h1>The “server” module<a class="headerlink" href="#module-server" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="server.FootageStream">
+<em class="property">class </em><code class="sig-prename descclassname">server.</code><code class="sig-name descname">FootageStream</code><span class="sig-paren">(</span><em class="sig-param">camera</em>, <em class="sig-param">addr</em>, <em class="sig-param">port=5555</em><span class="sig-paren">)</span><a class="headerlink" href="#server.FootageStream" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuously serves requests for the latest frame</p>
+<dl class="method">
+<dt id="server.FootageStream.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.FootageStream.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send images to the connected socket</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="server.Reciever">
+<em class="property">class </em><code class="sig-prename descclassname">server.</code><code class="sig-name descname">Reciever</code><span class="sig-paren">(</span><em class="sig-param">addr=''</em>, <em class="sig-param">port=5000</em><span class="sig-paren">)</span><a class="headerlink" href="#server.Reciever" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="server.Reciever.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.Reciever.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="server.main">
+<code class="sig-prename descclassname">server.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#server.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start the picar and wait for commands</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-client">
+<span id="the-client-module"></span><h1>The “client” module<a class="headerlink" href="#module-client" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="client.Keyboard">
+<em class="property">class </em><code class="sig-prename descclassname">client.</code><code class="sig-name descname">Keyboard</code><span class="sig-paren">(</span><em class="sig-param">transmitter</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Keyboard" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keystroke commands that can be sent over the transmitter</p>
+<dl class="method">
+<dt id="client.Keyboard.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.Keyboard.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Background thread listening to for keyboard events</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.Keyboard.run_cmd">
+<code class="sig-name descname">run_cmd</code><span class="sig-paren">(</span><em class="sig-param">cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Keyboard.run_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a command to picar reciever</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="client.LiveFeed">
+<em class="property">class </em><code class="sig-prename descclassname">client.</code><code class="sig-name descname">LiveFeed</code><span class="sig-paren">(</span><em class="sig-param">addr='192.168.0.212'</em>, <em class="sig-param">port=5555</em>, <em class="sig-param">threaded=False</em><span class="sig-paren">)</span><a class="headerlink" href="#client.LiveFeed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thread that receives frames from server and makes them available to other client threads.</p>
+<dl class="method">
+<dt id="client.LiveFeed.read">
+<code class="sig-name descname">read</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.LiveFeed.read" title="Permalink to this definition">¶</a></dt>
+<dd><p>Read a single frame from server</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.LiveFeed.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.LiveFeed.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Continuously read frames and update in background</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="client.ObjectTracker">
+<em class="property">class </em><code class="sig-prename descclassname">client.</code><code class="sig-name descname">ObjectTracker</code><span class="sig-paren">(</span><em class="sig-param">feed</em>, <em class="sig-param">transmitter</em>, <em class="sig-param">tracker='kcf'</em>, <em class="sig-param">mode='watch'</em><span class="sig-paren">)</span><a class="headerlink" href="#client.ObjectTracker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object tracker is a thread that has an opencv tracker</p>
+<p>The tracker is given access to a live feed where gets updated frames and to a transmitter which can send commands to a picar. Object tracking with the PiCar is poor, likely due to the instability of the head, paticularly when moving.</p>
+<dl class="method">
+<dt id="client.ObjectTracker.deselect">
+<code class="sig-name descname">deselect</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.ObjectTracker.deselect" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear selected object and stop tracking</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.ObjectTracker.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.ObjectTracker.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Track object in background using latest frame</p>
+<p>Updates the box location for the viewer. Also sends command using transmitter so the car will look towards the object thus centering it in the screen.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.ObjectTracker.select">
+<code class="sig-name descname">select</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#client.ObjectTracker.select" title="Permalink to this definition">¶</a></dt>
+<dd><p>Select object to track from a frame</p>
+<p>Gives the user the ability to select an object from a paused frame.
+The selected contains the portion of the image which will be tracked.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="client.ObjectTracker.track">
+<code class="sig-name descname">track</code><span class="sig-paren">(</span><em class="sig-param">frame</em><span class="sig-paren">)</span><a class="headerlink" href="#client.ObjectTracker.track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single update of the tracker.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="client.Transmitter">
+<em class="property">class </em><code class="sig-prename descclassname">client.</code><code class="sig-name descname">Transmitter</code><span class="sig-paren">(</span><em class="sig-param">addr='192.168.0.212'</em>, <em class="sig-param">port=5000</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Transmitter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class containing a socket and the ability to send commands to the server</p>
+<p>There should only be one instance unless multiple cars are being controlled.
+Every controller must be passed the transmitter in order to work.</p>
+<dl class="method">
+<dt id="client.Transmitter.send_cmd">
+<code class="sig-name descname">send_cmd</code><span class="sig-paren">(</span><em class="sig-param">cmd</em><span class="sig-paren">)</span><a class="headerlink" href="#client.Transmitter.send_cmd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send command to picar reciever</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="client.voice_command">
+<code class="sig-prename descclassname">client.</code><code class="sig-name descname">voice_command</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#client.voice_command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get input from the user using voice recognition.</p>
+<p>Voice commands are limited because implimenting a call for each can become complicated. The car has a tendency to get out of control, because the user cannot respond quickly enough.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">PiCar</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Russell Shomberg.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

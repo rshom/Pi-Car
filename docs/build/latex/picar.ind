@@ -1,0 +1,99 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{all\_ahead()}\spxextra{picar.PiCar method}, \hyperpage{1}
+  \item \spxentry{all\_stop()}\spxextra{picar.PiCar method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{Camera}\spxextra{class in picar}, \hyperpage{1}
+  \item \spxentry{center()}\spxextra{picar.Servo method}, \hyperpage{2}
+  \item \spxentry{client}\spxextra{module}, \hyperpage{5}
+  \item \spxentry{close()}\spxextra{picar.Camera method}, \hyperpage{1}
+  \item \spxentry{coast()}\spxextra{picar.Motor method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{deselect()}\spxextra{client.ObjectTracker method}, \hyperpage{5}
+  \item \spxentry{drive()}\spxextra{picar.Motor method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{ebrake()}\spxextra{picar.PiCar method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{follow\_line()}\spxextra{picar.PiCar method}, \hyperpage{2}
+  \item \spxentry{FootageStream}\spxextra{class in server}, \hyperpage{3}
+  \item \spxentry{forward()}\spxextra{picar.Motor method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{goto()}\spxextra{picar.Servo method}, \hyperpage{2}
+
+  \indexspace
+  \bigletter K
+  \item \spxentry{Keyboard}\spxextra{class in client}, \hyperpage{5}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{LineSensor}\spxextra{class in picar}, \hyperpage{1}
+  \item \spxentry{LiveFeed}\spxextra{class in client}, \hyperpage{5}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{main()}\spxextra{in module server}, \hyperpage{3}
+  \item \spxentry{max()}\spxextra{picar.Servo method}, \hyperpage{2}
+  \item \spxentry{min()}\spxextra{picar.Servo method}, \hyperpage{2}
+  \item \spxentry{Motor}\spxextra{class in picar}, \hyperpage{1}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{ObjectTracker}\spxextra{class in client}, \hyperpage{5}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{PiCar}\spxextra{class in picar}, \hyperpage{1}
+  \item \spxentry{picar}\spxextra{module}, \hyperpage{1}
+  \item \spxentry{pulse()}\spxextra{picar.PiCar method}, \hyperpage{2}
+
+  \indexspace
+  \bigletter R
+  \item \spxentry{read()}\spxextra{client.LiveFeed method}, \hyperpage{5}
+  \item \spxentry{read()}\spxextra{picar.Camera method}, \hyperpage{1}
+  \item \spxentry{Reciever}\spxextra{class in server}, \hyperpage{3}
+  \item \spxentry{reverse()}\spxextra{picar.Motor method}, \hyperpage{1}
+  \item \spxentry{rotate()}\spxextra{picar.Servo method}, \hyperpage{2}
+  \item \spxentry{run()}\spxextra{client.Keyboard method}, \hyperpage{5}
+  \item \spxentry{run()}\spxextra{client.LiveFeed method}, \hyperpage{5}
+  \item \spxentry{run()}\spxextra{client.ObjectTracker method}, \hyperpage{5}
+  \item \spxentry{run()}\spxextra{server.FootageStream method}, \hyperpage{3}
+  \item \spxentry{run()}\spxextra{server.Reciever method}, \hyperpage{3}
+  \item \spxentry{run\_cmd()}\spxextra{client.Keyboard method}, \hyperpage{5}
+  \item \spxentry{run\_cmd()}\spxextra{picar.PiCar method}, \hyperpage{2}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{select()}\spxextra{client.ObjectTracker method}, \hyperpage{5}
+  \item \spxentry{send\_cmd()}\spxextra{client.Transmitter method}, \hyperpage{5}
+  \item \spxentry{server}\spxextra{module}, \hyperpage{3}
+  \item \spxentry{Servo}\spxextra{class in picar}, \hyperpage{2}
+  \item \spxentry{sonar\_scan()}\spxextra{picar.PiCar method}, \hyperpage{2}
+  \item \spxentry{stop()}\spxextra{picar.Motor method}, \hyperpage{1}
+  \item \spxentry{stream()}\spxextra{picar.Camera method}, \hyperpage{1}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{track()}\spxextra{client.ObjectTracker method}, \hyperpage{5}
+  \item \spxentry{track\_object()}\spxextra{picar.PiCar method}, \hyperpage{2}
+  \item \spxentry{Transmitter}\spxextra{class in client}, \hyperpage{5}
+
+  \indexspace
+  \bigletter V
+  \item \spxentry{voice\_command()}\spxextra{in module client}, \hyperpage{6}
+
+\end{sphinxtheindex}
