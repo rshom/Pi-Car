@@ -7,7 +7,7 @@ keyboard==0.13.4
 Adafruit_PCA9685==1.0.1
 cryptography==2.8
 ipaddr==2.2.0
-lxml==4.4.2
+lxml==4.6.5
 ordereddict==1.1
 picamera==1.13
 protobuf==3.11.1
