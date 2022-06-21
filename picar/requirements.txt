@@ -1,5 +1,5 @@
 Cython==0.29.6
-numpy==1.16.2
+numpy==1.22.0
 imutils==0.5.3
 SpeechRecognition==3.8.1
 opencv_contrib_python==4.1.1.26
